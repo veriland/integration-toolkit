@@ -225,7 +225,8 @@ var
   MappingColumns: TArray<string>;
   IDList, InsertBatchList, GroupList: TStringList;
   GroupQuery: string;
-  BatchSize, CheckBatchSize, I, TotalRecords, ProcessedRecords: Integer;
+  // BatchSize,
+  CheckBatchSize, I, TotalRecords, ProcessedRecords: Integer;
   OutputFileName: string;
   GroupDict: TObjectDictionary<string, TStringList>;
 
@@ -302,7 +303,7 @@ begin
     end;
 
     WriteColoredLine(GetTimestamp, 'Processing records in batches...', BLUE, GREEN);
-    BatchSize := 100; // Adjust as necessary
+//    BatchSize := 100; // Adjust as necessary
 
     // Count total records
     FDQueryMain.SQL.Text := 'SELECT COUNT(*) AS TotalCount FROM (' + ReadSQLQuery(SQLQueryFile) + ') AS T';
@@ -335,8 +336,8 @@ begin
       Inc(ProcessedRecords);
       ShowProgressBar(ProcessedRecords, TotalRecords);
 
-      if ProcessedRecords mod BatchSize = 0 then
-        FDQueryMain.Next;
+//      if ProcessedRecords mod BatchSize = 0 then
+//        FDQueryMain.Next;
     end;
     FDQueryMain.Close;
     WriteColoredLine(GetTimestamp, 'Total records processed: ' + IntToStr(ProcessedRecords), BLUE, GREEN);
